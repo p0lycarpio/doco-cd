@@ -37,6 +37,7 @@ func TestStackActionApiHandlerValidationPrecedence(t *testing.T) {
 		{name: "unknown action", path: "/stack/stack/invalid", method: http.MethodGet, wantStatus: http.StatusNotFound, contains: "404 page not found"},
 		{name: "method before wait parsing", path: "/stack/stack/restart?wait=invalid", method: http.MethodGet, wantStatus: http.StatusMethodNotAllowed, contains: "invalid http method"},
 		{name: "invalid wait aborts action", path: "/stack/stack/restart?wait=invalid", method: http.MethodPost, wantStatus: http.StatusBadRequest, contains: "wait"},
+		{name: "invalid wait aborts run", path: "/stack/stack/run?wait=invalid", method: http.MethodPost, wantStatus: http.StatusBadRequest, contains: "wait"},
 		{name: "invalid replicas aborts action", path: "/stack/stack/scale?replicas=invalid", method: http.MethodPost, wantStatus: http.StatusBadRequest, contains: "replicas"},
 	} {
 		t.Run(testCase.name, func(t *testing.T) {
